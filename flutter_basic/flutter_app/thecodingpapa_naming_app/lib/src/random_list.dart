@@ -7,6 +7,9 @@ class RandomList extends StatefulWidget {
 }
 
 class _RandomListState extends State<RandomList> {
+  final List<WordPair> _suggestions = <WordPair>[];
+  final Set<WordPair> _saved = Set<WordPair>();
+
   @override
   Widget build(BuildContext context) {
     final randomWord = WordPair.random();
@@ -15,7 +18,16 @@ class _RandomListState extends State<RandomList> {
       appBar: AppBar(
         title: Text("Naming App"),
       ),
-      body: Center(child: Text(randomWord.asPascalCase, textScaleFactor: 1.5,)),
+      body: ListView.builder(itemBuilder: (context, index) {
+        // 0, 2, 4, 6, 8 = real items
+        // 1, 3, 5, 7, 9 = dividers
+        if (index.isOdd) {
+          return Divider();
+        }
+        var realIndex = index ~/ 2;
+
+        return Text(realIndex.toString(), textScaleFactor: 1.5,);
+      }),
     );
   }
 }
