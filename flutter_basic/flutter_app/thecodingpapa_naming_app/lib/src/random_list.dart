@@ -12,27 +12,38 @@ class _RandomListState extends State<RandomList> {
 
   @override
   Widget build(BuildContext context) {
-    final randomWord = WordPair.random();
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Naming App"),
       ),
-      body: ListView.builder(itemBuilder: (context, index) {
-        // 0, 2, 4, 6, 8 = real items
-        // 1, 3, 5, 7, 9 = dividers
-        if (index.isOdd) {
-          return Divider();
-        }
+      body: _buildList(),
+    );
+  }
 
-        var realIndex = index ~/ 2;
+  ListView _buildList() {
+    return ListView.builder(itemBuilder: (context, index) {
+      // 0, 2, 4, 6, 8 = real items
+      // 1, 3, 5, 7, 9 = dividers
+      if (index.isOdd) {
+        return Divider();
+      }
 
-        if( realIndex >= _suggestions.length) {
-          _suggestions.addAll(generateWordPairs().take(10));
-        }
+      var realIndex = index ~/ 2;
 
-        return Text(_suggestions[realIndex].asPascalCase, textScaleFactor: 1.5,);
-      }),
+      if (realIndex >= _suggestions.length) {
+        _suggestions.addAll(generateWordPairs().take(10));
+      }
+
+      return _buildRow(_suggestions[realIndex]);
+    });
+  }
+
+  _buildRow(WordPair pair) {
+    ListTile(
+        title: Text(
+          pair.asPascalCase,
+          textScaleFactor: 1.5,
+        )
     );
   }
 }
