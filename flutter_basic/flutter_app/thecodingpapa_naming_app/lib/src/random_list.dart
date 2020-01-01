@@ -1,5 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:thecodingpapa_naming_app/src/saved.dart';
 
 class RandomList extends StatefulWidget {
   @override
@@ -15,6 +16,16 @@ class _RandomListState extends State<RandomList> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Naming App"),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.list),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Saved()),
+              );
+            },
+          )
+        ],
       ),
       body: _buildList(),
     );
