@@ -13,14 +13,7 @@ class MyApp extends StatelessWidget {
 //      theme: ThemeData(
 //        primarySwatch: Colors.blue,
 //      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Best app"),
-        ),
-        body: Center(
-          child: RandomWords(),
-        ),
-      ),
+      home: RandomWords(),
     );
   }
 }
@@ -33,8 +26,19 @@ class RandomWords extends StatefulWidget {
 class RandomWordsState extends State<RandomWords> {
   @override
   Widget build(BuildContext context) {
-    final WordPair wordPair = WordPair.random();
 
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Startup Name Generator'),
+      ),
+      body: _buildSuggestions(),
+    );
+  }
+
+  Widget _buildSuggestions() {
+    final WordPair wordPair = WordPair.random();
     return Text(wordPair.asPascalCase);
   }
 }
+
+
