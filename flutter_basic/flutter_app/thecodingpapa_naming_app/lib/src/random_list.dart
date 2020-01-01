@@ -21,7 +21,7 @@ class _RandomListState extends State<RandomList> {
             icon: const Icon(Icons.list),
             onPressed: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => Saved()),
+                  MaterialPageRoute(builder: (context) => SavedList(saved: _saved)),
               );
             },
           )
