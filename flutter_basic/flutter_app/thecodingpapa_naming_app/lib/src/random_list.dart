@@ -38,12 +38,19 @@ class _RandomListState extends State<RandomList> {
     });
   }
 
-  _buildRow(WordPair pair) {
-    ListTile(
-        title: Text(
-          pair.asPascalCase,
-          textScaleFactor: 1.5,
-        )
+  Widget _buildRow(WordPair pair) {
+    return ListTile(
+      title: Text(
+        pair.asPascalCase,
+        textScaleFactor: 1.5,
+      ),
+      trailing: Icon(
+        Icons.favorite_border,
+        color: Colors.pink,
+      ),
+      onTap: () {
+        print(pair.asPascalCase);
+      },
     );
   }
 }
