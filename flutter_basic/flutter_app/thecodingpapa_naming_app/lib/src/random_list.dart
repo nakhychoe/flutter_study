@@ -24,9 +24,14 @@ class _RandomListState extends State<RandomList> {
         if (index.isOdd) {
           return Divider();
         }
+
         var realIndex = index ~/ 2;
 
-        return Text(realIndex.toString(), textScaleFactor: 1.5,);
+        if( realIndex >= _suggestions.length) {
+          _suggestions.addAll(generateWordPairs().take(10));
+        }
+
+        return Text(_suggestions[realIndex].asPascalCase, textScaleFactor: 1.5,);
       }),
     );
   }
