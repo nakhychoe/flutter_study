@@ -10,9 +10,9 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'welcome to the coding papa',
-//      theme: ThemeData(
-//        primarySwatch: Colors.blue,
-//      ),
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
       home: RandomWords(),
     );
   }
@@ -42,7 +42,31 @@ class RandomWordsState extends State<RandomWords> {
   }
 
   void _pushSaved() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          final Iterable<ListTile> tiles = _saved.map(
+            (WordPair pair) {
+              return ListTile(
+                title: Text(
+                  pair.asPascalCase,
+                  style: _biggerFont,
+                ),
+              );
+            },
+          );
+          final List<Widget> divided =
+              ListTile.divideTiles(context: context, tiles: tiles).toList();
 
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Saved Suggestions'),
+            ),
+            body: ListView(children: divided),
+          );
+        },
+      ),
+    );
   }
 
   Widget _buildSuggestions() {
@@ -81,18 +105,18 @@ class RandomWordsState extends State<RandomWords> {
     final bool alreadySaved = _saved.contains(pair);
 
     return ListTile(
-        title: Text(
-          pair.asPascalCase,
-          style: _biggerFont,
-        ),
+      title: Text(
+        pair.asPascalCase,
+        style: _biggerFont,
+      ),
       trailing: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved ? Colors.red : null,
       ),
       onTap: () {
-          setState(() {
-            alreadySaved ?  _saved.remove(pair) : _saved.add(pair);
-          });
+        setState(() {
+          alreadySaved ? _saved.remove(pair) : _saved.add(pair);
+        });
       },
     );
   }
